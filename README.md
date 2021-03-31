@@ -1,6 +1,94 @@
 
 
-<!-- PROJECT LOGO -->
+
+
+<!--Prerequisites-->
+## Prerequisites
+* docopt
+  ```sh
+  pip install docopt
+  ```
+* imgaug
+  ```sh
+  pip install imgaug
+  ```
+* openslide-python
+  ```sh
+  pip install openslide-python
+  ```
+* tifffile
+  ```sh
+  pip install tifffile
+  ```
+
+<!-- How to use -->
+## How to use
+Code Structure
+```
+├── classification_model
+|
+├── segmentation_model                  
+|
+├── infer
+|   ├── inferManager.py
+|
+├── dataset
+|   ├── example1.svs
+|   ├── example2.svs
+|   ├── ....
+|
+├── output
+|   ├── example1_v.tif
+|   ├── example2_v.tif
+|   ├── ....
+|   ├── example1_wt.tif
+|   ├── example2_wt.tif
+|   ├── ....
+|
+├── pretrained
+|   ├── whole_cls_tumor_net.pth
+|   ├── ambiguours_tumor_net.pth
+|   ├── viable_tumor_net.pth
+|   ├── viable_seg_net.pth
+|
+├── model
+├── run_infer.py
+├── run_infer.sh
+├── ....
+```
+
+Only support single GPU, it will take 10 minutes per each WSI.
+<p align="center">
+  <ol>
+    <li> Put your data into input_path(default: ./dataset) (only support .svs format)
+    <li> Download pretrained models into "./pretrained"
+      <p>
+        <a href="https://drive.google.com/drive/folders/1_XYv5gVB0OoAK8-GU5A64cVMQmkdd0He?usp=sharing">Pretrained model Link</a>
+      </p>
+    <li> Run run_infer.sh
+    <li> You can see your result at output_path(default: ./output).
+      <p>
+        <ul>
+          <li> "?_v.tif" : viable tumor prediction
+          <li>"?_wt.tif" : whole tumor area prediction
+        </ul>
+      </p>
+  </ol>
+</p>
+
+<!-- Our method -->
+## Our method
+<p>
+
+
+  If you want more details, please visit my blog.
+  <h3><a href="https://chhan95.github.io/project/2021/03/15/paip2019.html">Details for train and infer</a></h3>
+
+</p>
+
+
+<!--Dataset-->
+## Dataset
 <p align="center">
     <a href="https://paip2019.grand-challenge.org">
         <img src="data/images/logo.png" alt="Logo">
@@ -13,73 +101,33 @@
     </p>      
 </p>
 
-
-
-<!--Table of Contents--!>
-
-<strong>Table of contents</strong>
-<details open="open">
-    <ol>
-        <li>
-            PAIP2019 Challenge
-            <ul>
-                <li>background</li>
-                <li>dataset</li>
-                <li>evaluation</li>
-            </ul>
-        </li>
-        <li>
-            Our method
-            <ul>
-                <li>
-                <strong>Task 1: Liver Cancer Segmentation</strong>
-                </li>
-                <li>
-                <strong>Task 2: Viable Tumor Burden Estimation</strong>
-                </li>
-            </ul>
-        </li>
-        <li>
-            How to use
-        </li>
-
-        <li>
-            Results
-        </li>
-        <li>
-            prerequisites
-        </li>
-
-    </ol>
-</details>
-
-
-
-<!--PAIP2019 challenge-->
-## PAIP2019 Challenge
 <ul>
     <li>
-        <strong>background:</strong>
+        <strong>Background:</strong>
         <p>
+          Liver cancer is one of the most common cancer. For the best prognosis of patients, early diagnosis of liver cancer is crucial task.
+          In this project, we proposed the method for whole and viable liver tumor segmentation.
+          <ul>
+              <strong>Tumor definition</strong>
+               <li>Whole tumor area: This area is defined as the outermost boundary enclosing all dispersed viable tumor cell nests, tumor necrosis, and tumor capsule. </li>
+               <li>Viable tumor area: This region is defined as viable tumor cell nests and as precisely as possible, boundaries along the boundary between the cell and the surrounding stroma. </li>
+          </ul>
         </p>
     </li>
     <li>
-        <strong>dataset</strong></li>
+        <strong>Dataset</strong></li>
         <p>
            <ul>
                 <li>The training dataset contains 50 WSIs</li>
                 <li>The validation dataset contains 10 WSIs</li>
                 <li>The test dataset contains 40 WSIs</li>
-                <p>
-                    All WSIs were scanned at 40X magnification
-                </p>
            </ul>
         </p>
     <li>
-        <strong>evaluation</strong>
+        <strong>Evaluation</strong>
         <ul>
             <li>
-               <strong>Task1: Cancer segmentation</strong>
+               <strong>Task1: Liver Cancer Segmentation</strong>
             </li>
             <li>
                 <strong>Task2: Viable Tumor Burden Estimation</strong>
@@ -90,37 +138,21 @@
 
 </ul>
 
-<!-- Our method -->
-## Our method
-<p align="center">
 
 
-<!-- How to use -->
-## How to use
-Only support single GPU, it will take 10 minutes per each WSI.
-<p align="center">
-  <ol>
-    <li> put your data into input_path (only support .svs format)
-    <li> Download pretrained models into "./pretrained"
-    <li> Run run_infer.sh
-    <li> you can see your result at output_path.
-      <p>
-        <ul>
-          <li> "?_v.tif" : viable tumor prediction
-          <li>"?_wt.tif" : whole tumor area prediction
-        </ul>
-      </p>
-  </ol>
-</p>
-
-<!--pretrained Weight-->
-## pretrained Weight
-<p>
-  <a href="https://drive.google.com/drive/folders/1_XYv5gVB0OoAK8-GU5A64cVMQmkdd0He?usp=sharing">Pretrained model Link</a>
-</p>
 
 <!-- Results -->
 ## Results
+
+<p align="center">
+    <a href="https://paip2019.grand-challenge.org">
+        <img src="data/images/test_result.png" alt="Logo">
+    </a>
+    <p align="center">
+        Figure1. Test set segmentation results
+    </p>      
+</p>
+
 <ul>
     <li>
         <strong>Validation Results</strong>
@@ -153,22 +185,3 @@ Only support single GPU, it will take 10 minutes per each WSI.
         <a href="https://www.sciencedirect.com/science/article/pii/S1361841520302188">Paper of Challenge</a>
     </li>
 </ul>
-
-<!--prerequisites-->
-## prerequisites
-* docopt
-  ```sh
-  pip install docopt
-  ```
-* imgaug
-  ```sh
-  pip install imgaug
-  ```
-* openslide-python
-  ```sh
-  pip install openslide-python
-  ```
-* tifffile
-  ```sh
-  pip install tifffile
-  ```
