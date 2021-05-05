@@ -1,6 +1,13 @@
 
+<!-- Our method -->
+## Our method
+<p>
 
 
+  If you want more details, please visit my blog.
+  <h3><a href="https://chhan95.github.io/project/2021/03/15/paip2019.html">Details for train and infer</a></h3>
+
+</p>
 
 <!--Prerequisites-->
 ## Prerequisites
@@ -14,12 +21,28 @@
   ```
 * openslide-python
   ```sh
-  pip install openslide-python
+  1. Download project from openslide-python github
+
+     python setup.py install
   ```
+  ```sh
+  2. pip install openslide-python
+  ```
+
 * tifffile
   ```sh
   pip install tifffile
   ```
+
+
+<!--Support format-->
+## Support format
+openslide was used to read WSI.
+
+I tested .svs and .ndpi format.
+
+If you want to use another format, add the command at inferManager.py(line :61)
+<br>ex)wsi_list += glob.glob(self.input_path+"/*.ndpi")
 
 <!-- How to use -->
 ## How to use
@@ -57,10 +80,10 @@ Code Structure
 ├── ....
 ```
 
-Only support single GPU, it will take 10 minutes per each WSI.
+Only support a single GPU, it will take 10 minutes per each WSI(40x).
 <p align="center">
   <ol>
-    <li> Put your data into input_path(default: ./dataset) (only support .svs format)
+    <li> Put your data into input_path(default: ./dataset)
     <li> Download pretrained models into "./pretrained"
       <p>
         <a href="https://drive.google.com/drive/folders/1_XYv5gVB0OoAK8-GU5A64cVMQmkdd0He?usp=sharing">Pretrained model Link</a>
@@ -76,15 +99,6 @@ Only support single GPU, it will take 10 minutes per each WSI.
   </ol>
 </p>
 
-<!-- Our method -->
-## Our method
-<p>
-
-
-  If you want more details, please visit my blog.
-  <h3><a href="https://chhan95.github.io/project/2021/03/15/paip2019.html">Details for train and infer</a></h3>
-
-</p>
 
 
 <!--Dataset-->
