@@ -44,6 +44,12 @@ I tested .svs and .ndpi format.
 If you want to use another format, add the command at inferManager.py(line :61)
 <br>ex)wsi_list += glob.glob(self.input_path+"/*.ndpi")
 
+<!--Support format-->
+## Thumbnail
+Because of the spatial size of WSI, it's not efficient to allocate the memory for chekcing the rusults corresponding with the original WSI.
+So, it will be easy to the thumbnails at the "output/thumbnail" folder.<br>
+You can change the rescale factor for WSI in interval (0,1) with '--rescale' arguments.<br>
+If you make it into another range of input ex) -1, the program don't generate thumbnail.
 <!-- How to use -->
 ## How to use
 Code Structure
@@ -61,12 +67,21 @@ Code Structure
 |   ├── ....
 |
 ├── output
-|   ├── example1_v.tif
-|   ├── example2_v.tif
-|   ├── ....
-|   ├── example1_wt.tif
-|   ├── example2_wt.tif
-|   ├── ....
+|   ├── prediction
+|   ├──   ├── example1_v.tif
+|   ├──   ├── example2_v.tif
+|   ├──   ├── ....
+|   ├──   ├── example1_wt.tif
+|   ├──   ├── example2_wt.tif
+|   ├──   ├── ....
+|   |
+|   ├── thumbnail
+|   ├──   ├── example1_v.png
+|   ├──   ├── example2_v.png
+|   ├──   ├── ....
+|   ├──   ├── example1_wt.png
+|   ├──   ├── example2_wt.png
+|   ├──   ├── ....
 |
 ├── pretrained
 |   ├── whole_cls_tumor_net.pth
@@ -91,9 +106,18 @@ Only support a single GPU, it will take 10 minutes per each WSI(40x).
     <li> Run run_infer.sh
     <li> You can see your result at output_path(default: ./output).
       <p>
+        prediction: This folder contains the binary maps of the segmentation results corresponding with original WSIs(1-to-1 mapping).
         <ul>
           <li> "?_v.tif" : viable tumor prediction
           <li>"?_wt.tif" : whole tumor area prediction
+        </ul>
+      </p>
+      <br>
+      <p>
+      thumbnail: This folder contains thumbnails, the resized segmentation results, which can be scaled by the "--rescale" arguments in a range of (0,1)
+        <ul>
+          <li> "?_v.png" : viable tumor resized image
+          <li>"?_wt.png" : whole tumor resized image
         </ul>
       </p>
   </ol>
